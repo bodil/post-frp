@@ -82,16 +82,17 @@ module.exports = (CodeMirror, languages) => {
 
     this.compile = function compile(code, callback) {
       socket.send({compile: code, type: "text/x-purescript"}, (msg) => {
-        if (msg.error.trim().length) {
-          let m = msg.error.match(/line +(\d+), column (\d+)/m);
+        if (msg.error) {
+          let m = msg.stdout.match(/line +(\d+), column (\d+)/m);
+          console.log("errors:", m);
           if (m) {
             let line = parseInt(m[1], 10) - 1, col = parseInt(m[2], 10) - 1;
-            let errmsg = msg.error.split("\n").slice(1, -1).join("\n");
+            let errmsg = msg.stdout.split("\n").slice(1, -1).join("\n");
             console.log(line, col, errmsg);
             callback(null, {errors: [{message: errmsg, pos: {line: line, col: col}}],
                             code: null})
           } else {
-            callback("Unknown error output: " + msg.error);
+            callback("Unknown error output: " + msg.stdout);
           }
         } else {
           callback(null, {code: msg.result, errors: []});

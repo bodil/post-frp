@@ -30,14 +30,14 @@ module.exports = function(codepath, code, cb) {
       c.stdin.end(code);
       c.stdout.on("data", function(data) {
         out += data;
+        process.stdout.write(data);
       });
       c.stderr.on("data", function(data) {
         err += data;
-        console.log("ERR", data.toString("utf-8"));
+        process.stderr.write(data);
       });
-      c.stdout.on("end", function() {
-        console.log(out);
-        cb(null, {output: out, error: err});
+      c.on("exit", function(code, signal) {
+        cb(code ? "Process terminated with return code " + code : null, {stdout: out, stderr: err});
       });
     });
   });

@@ -54,7 +54,8 @@ export default function() {
         } else {
           const msg = JSON.parse(data.utf8Data);
           const respond = function(err, response) {
-            if (err) response = { error: err.toString() };
+            response = response || {};
+            if (err) response.error = err.toString();
             response.messageId = msg.messageId;
             console.log("sending response");
             socket.send(JSON.stringify(response));
@@ -68,7 +69,7 @@ export default function() {
               }
               compile(codepath, msg.compile, (err, result) => {
                 if (err) {
-                  return respond(err, {});
+                  return respond(err, result);
                 }
                 console.log("Webpacking...");
                 compiler.run((err, stats) => {
