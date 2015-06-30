@@ -1,0 +1,84 @@
+/* haskellwiki */
+
+.cm-s-haskellwiki span.cm-keyword { line-height: 1em; font-weight: bold; color: black; }
+
+.cm-s-haskellwiki span.cm-comment {color: #555; font-weight: bold; font-style: italic;}
+
+.cm-s-haskellwiki span.cm-number {color: #040;}
+.cm-s-haskellwiki span.cm-string {color: #040;}
+.cm-s-haskellwiki span.cm-string-2 {color: #f50;}
+
+/* variable-2 = types */
+.cm-s-haskellwiki span.cm-qualifier {color: #ff1717;}
+.cm-s-haskellwiki span.cm-variable-2 {color: #ff1717;}
+
+.cm-s-haskellwiki span.cm-variable {color: black;}
+.cm-s-haskellwiki span.cm-builtin {color: #919;}
+.cm-s-haskellwiki span.cm-variable-3 {color: #0000C0;}
+
+.cm-s-haskellwiki span.cm-atom {color: #219;}
+.cm-s-haskellwiki span.cm-meta {color: #FF1717;}
+.cm-s-haskellwiki span.cm-def {color: #00f;}
+.cm-s-haskellwiki span.cm-property {color: black;}
+.cm-s-haskellwiki span.cm-operator {color: black;}
+.cm-s-haskellwiki span.cm-bracket {color: black;}
+.cm-s-haskellwiki span.cm-tag {color: #170;}
+.cm-s-haskellwiki span.cm-attribute {color: #00c;}
+.cm-s-haskellwiki span.cm-link {color: #219;}
+.cm-s-haskellwiki span.cm-error {color: #f00;}
+
+.cm-s-haskellwiki .CodeMirror-activeline-background {background: #e8f2ff !important;}
+.cm-s-haskellwiki .CodeMirror-matchingbracket {background-color: #ccc; color:black !important;}
+
+/* layout */
+
+#slides section.psrepl {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    background: none;
+
+    .editorFrame, .replFrame {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        padding: 0.5em;
+    }
+
+    .editorFrame {
+        height: 60%;
+        top: 40%;
+        padding-top: 0;
+    }
+
+    .replFrame {
+        height: 40%;
+        top: 0;
+        padding-bottom: 0.2em;
+    }
+
+    .CodeMirror, .terminal {
+        font-family: "Inconsolata";
+        line-height: 1.2em;
+        font-size: 0.4em;
+
+    }
+
+    .CodeMirror {
+        box-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.6);
+        border-radius: 4pt;
+    }
+
+    .termContainer {
+        background: white;
+        border-radius: 4pt;
+        width: 100%;
+        height: 100%;
+        padding: 0 0.2em;
+    }
+
+    .terminal {
+    }
+}

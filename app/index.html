@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>hai lol</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="screen.css">
+  </head>
+  <body style="visibility: hidden">
+    <div id="app"></div>
+
+    <script type="text/javascript">
+      (function() {
+        function resizeCanvas() {
+          var app = document.getElementById("app");
+          var scale = window.innerWidth / app.clientWidth;
+          app.style.mozTransform = "scale(" + scale + ")";
+          app.style.webkitTransform = "scale(" + scale + ")";
+          app.style.transform = "scale(" + scale + ")";
+          app.style.height = (window.innerHeight / scale) + "px";
+        }
+
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+      })();
+    </script>
+    <script type="text/javascript" src="client.js"></script>
+  </body>
+</html>

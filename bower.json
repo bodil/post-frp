@@ -1,0 +1,19 @@
+{
+  "name": "halogen-talk",
+  "authors": [
+    "Bodil Stokke <bodil@bodil.org>"
+  ],
+  "license": "GPL-3.0+",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "purescript-halogen": "master",
+    "purescript-simple-dom": "~0.0.2",
+    "purescript-halogen-bootstrap": "master"
+  }
+}
