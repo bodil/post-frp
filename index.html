@@ -16,79 +16,10 @@
 
     <div id="slides" data-background="m/stable-tec.png">
 
-      <section data-editor="text/x-purescript" data-href="app/index.html" data-reload data-warmup>
-        module Main where
-
-        import Data.Void
-        import Data.Tuple
-        import Data.Either
-        import Data.Maybe
-
-        import Control.Bind
-        import Control.Monad.Eff
-
-        import DOM
-
-        import Data.DOM.Simple.Document
-        import Data.DOM.Simple.Element
-        import Data.DOM.Simple.Types
-        import Data.DOM.Simple.Window
-
-        import Halogen
-        import Halogen.Signal
-        import Halogen.Component
-
-        import qualified Halogen.HTML as H
-        import qualified Halogen.HTML.Attributes as A
-        import qualified Halogen.HTML.Events as A
-
-        import qualified Halogen.Themes.Bootstrap3 as B
-
-        appendToBody :: forall eff. HTMLElement ->
-                        Eff (dom :: DOM | eff) Unit
-        appendToBody e = do
-          doc <- document globalWindow
-          Just app <- querySelector "#app" doc
-          appendChild app e
-
-        type Pony = String
-
-        data State = State [Pony]
-
-        data Input = NewPony Pony | RemovePony Pony
-
-        ui :: forall m. (Applicative m) =>
-              Component m Input Input
-        ui = render <$> stateful (State 0) update
-          where
-          render :: State -> H.HTML (m Input)
-          render (State n) =
-            H.div [ A.class_ B.container ]
-              [ H.p_ [ H.text
-                 ("lol omg " ++ show n) ] ]
-
-          update :: State -> Input -> State
-          update (State number) Tick =
-            State (number + 1)
-
-        main = do
-          Tuple node driver <- runUI ui
-          appendToBody node
-      </section>
-
-      <section class="title photobg" data-image="m/mad-science.png">
-        <h2>how to get shit</h2>
-        <h1>to work right</h1>
+      <section class="title photobg" data-background="m/republic.jpg">
+        <h1 style="margin-bottom: 0">Post-FRP</h1>
+        <h2 style="margin-bottom: 0.2em">Frontend Programming</h2>
         <p class="author">@bodil</p>
-      </section>
-
-      <section>
-        <p>
-          actually how to get UI programming to just be a little less
-          horrible through the application of modern functional
-          programming patterns, type theory and a bit of gratuitous
-          Kmettification
-        </p>
       </section>
 
       <section class="photo meme" data-image="m/magnets.gif">
@@ -154,105 +85,19 @@
         <p class="fragment">Not pure but sensible effort.</p>
       </section>
 
+      <section class="photo meme" data-image="m/elmo.gif">
+        <p class="bottom">ELM</p>
+      </section>
+
       <section>
-        <p>Also,</p>
-        <h2>Cursors</h2>
-      </section>
-
-      <section data-highlight="on">
-        <blockquote><pre class="clojure">
-(def state (atom
-  {:name {:first "Twilight"
-          :last "Sparkle"
-          :title "Ms"}}))
-
-(let [cursor (om/ref-cursor
-               (:name (om/root-cursor state)))]
-  ... )</pre></blockquote>
-      </section>
-
-      <section data-highlight="on">
-        <blockquote><pre class="clojure">
-(let [cursor (om/ref-cursor
-               (:name (om/root-cursor state)))]
-  (om/update! cursor :title "Princess"))
-
-@cursor
-=> {:first "Twilight"
-    :last "Sparkle"
-    :title "Princess"}</pre></blockquote>
-      </section>
-
-      <section data-highlight="on">
-        <blockquote><pre class="clojure">
-@state
-=> {:name {:first "Twilight"
-           :last "Sparkle"
-           :title "Princess"}}</pre></blockquote>
-      </section>
-
-      <section class="photo" data-image="m/kmett.jpg"></section>
-
-      <section data-highlight="on">
-        <blockquote><pre class="haskell">
-data Lens a b
-  = Lens { get :: a -> b
-         , set :: b -> a -> a
-         }</pre></blockquote>
+        <h3>Elm</h3>
+        <p>An elegant, UI specialised Haskell cousin.</p>
+        <p class="fragment">Designed to be easy to learn & teach.</p>
+        <p class="fragment">No unnecessary category theory.</p>
       </section>
 
       <section data-highlight="on">
         <blockquote><pre class="haskell">
--- | Lens composition
-(>-) :: Lens a b -> Lens b c -> Lens a c</section>
-
-          <section class="photo" data-image="m/fractal-pinkie.gif"></section>
-
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
-type Lens a b = (a ->  b, b -> a -> a) -- same as before
-type Lens a b = (a ->  b, a -> b -> a) -- flip the setter
-type Lens a b =  a -> (b,      b -> a) -- pull the parameter out
-
-data Store b a = Store b (b -> a)
-type Lens a b = a -> Store b a</pre></blockquote>
-          </section>
-
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
-instance Comonad (Store b) where
-  extract (Store piece hole) = hole piece
-  duplicate (Store piece hole) =
-    Store piece (\newPiece -> Store newPiece hole)</pre></blockquote>
-          </section>
-
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
-type Coalg f a = a -> f a
-type Lens a b = Coalg (Store b) a</pre></blockquote>
-          </section>
-
-          <section class="photo meme" data-image="m/cokmett.gif">
-            <p class="bottom">lenses are costate comonad coalgebras</p>
-          </section>
-
-          <section class="photo meme" data-image="m/dog-monad.jpg">
-            <p class="fragment bottom smaller">dog monad</p>
-          </section>
-
-          <section class="photo meme" data-image="m/elmo.gif">
-            <p class="bottom">ELM</p>
-          </section>
-
-          <section>
-            <h3>Elm</h3>
-            <p>An elegant, UI specialised Haskell cousin.</p>
-            <p class="fragment">Designed to be easy to learn & teach.</p>
-            <p class="fragment">No unnecessary category theory.</p>
-          </section>
-
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
 -- MODEL
 type alias Model = { ... }
 
@@ -264,49 +109,41 @@ update action model = case action of ...
 
 -- VIEW
 view : Model -> Html</pre></blockquote>
-          </section>
+      </section>
 
-          <section class="photo meme" data-image="m/frp.gif">
-            <p class="top small">Functional Reactive Programming</p>
-          </section>
+      <section class="photo meme" data-image="m/stream.gif">
+        <p class="top small">Functional Reactive Programming</p>
+      </section>
 
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
+      <section data-highlight="on">
+        <blockquote><pre class="haskell">
 Mouse.position : Signal (Int, Int)
 Mouse.isDown : Signal Bool
 Time.every : Time -> Signal Time
+
 Signal.map : (a -> b) -> Signal a -> Signal b
 Signal.foldp : (a -> s -> s) -> s -> Signal a -> Signal s</pre></blockquote>
-          </section>
+      </section>
 
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
+      <section data-highlight="on">
+        <blockquote><pre class="haskell">
 main : Signal Html
 main = Signal.map (view actions.address) model
 
 model : Signal Model
 model = Signal.foldp update initial actions.signal
 
+view : Signal.Address Action -> Model -> Html
+view address model = div [] [ text "Ponies!" ]
+
 actions : Signal.Mailbox Action
 actions = Signal.mailbox ...</pre></blockquote>
-          </section>
+      </section>
 
-          <section class="photo" data-image="m/diagram.png"></section>
+      <section class="photo" data-image="m/diagram.png"></section>
 
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
-module Counter (Model, init, Action, update, view) where
-
-type Model = ...
-type Action = ...
-
-init : Int -> Model
-update : Action -> Model -> Model
-view : Signal.Address Action -> Model -> Html</pre></blockquote>
-          </section>
-
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
+      <section data-highlight="on">
+        <blockquote><pre class="haskell">
 type alias Model =
     { topCounter : Counter.Model
     , bottomCounter : Counter.Model
@@ -317,110 +154,132 @@ init top bottom =
     { topCounter = Counter.init top
     , bottomCounter = Counter.init bottom
     }</pre></blockquote>
-          </section>
+      </section>
 
-          <section class="photo meme" data-image="m/kmett.jpg">
-            <p class="bottom">LENSES</p>
-          </section>
+      <section class="photo meme" data-image="m/halogen.png">
+        <p class="bottom">purescript-halogen</p>
+      </section>
 
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
-module Focus where
-
-type Focus big small
-
-get : Focus big small -> big -> small
-set : Focus big small -> small -> big -> big
-update : Focus big small -> (small -> small) -> big -> big</pre></blockquote>
-          </section>
-
-          <section class="photo" data-image="m/excited-pie.gif"></section>
-
-          <section class="photo meme" data-image="m/halogen.jpg">
-            <p class="bottom">purescript-halogen</p>
-          </section>
-
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
+      <section data-highlight="on">
+        <blockquote><pre class="haskell">
 type UI = Signal HTML</pre></blockquote>
-          </section>
+      </section>
 
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
-type UI1 event = Signal (HTML event)</pre></blockquote>
-          </section>
+      <section data-highlight="on">
+        <blockquote><pre class="haskell">
+type UISignal event = Signal (HTML event)</pre></blockquote>
+      </section>
 
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
-type UI1 event = Signal (HTML event)
+      <section data-highlight="on">
+        <blockquote><pre class="haskell">
+type UISignal event = Signal (HTML event)
 
-type UI2 event = Signal event -> Signal (HTML event)</pre></blockquote>
-          </section>
+type UISigFunc event = Signal event -> Signal (HTML event)</pre></blockquote>
+      </section>
 
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
-type UI2 event = Signal event -> Signal (HTML event)
+      <section data-highlight="on">
+        <blockquote><pre class="haskell">
+type UISigFunc event = Signal event -> Signal (HTML event)
 
-type UI3 event = SF event (HTML event)</pre></blockquote>
-          </section>
+type SF i o = SF (i -> SF1 i o)
 
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
+type UISF event = SF event (HTML event)</pre></blockquote>
+      </section>
+
+      <section data-highlight="on">
+        <blockquote><pre class="haskell">
 newtype SF i o = SF (i -> SF1 i o)
 
 newtype SF1 i o = SF1 { result :: o, next :: SF i o }</pre></blockquote>
-          </section>
+      </section>
 
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
-type UI3 event = SF event (HTML event)
+      <section data-highlight="on">
+        <blockquote><pre class="haskell">
+stateful :: forall s i.
+     s -> (s -> i -> s) -> SF1 i s</pre></blockquote>
+      </section>
 
-type UI4 m event = SF event (HTML (m event))</pre></blockquote>
-          </section>
+      <section data-highlight="on">
+        <blockquote><pre class="haskell">
+type UISF event = SF event (HTML event)
 
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
-type UI4 m event = SF event (HTML (m event))
+type UISFWithM m event = SF event (HTML (m event))</pre></blockquote>
+      </section>
 
-type UI5 m p event = SF event (HTML p (m event))</pre></blockquote>
-          </section>
+      <section data-highlight="on">
+        <blockquote><pre class="haskell">
+type UISFWithM m event = SF event (HTML (m event))
 
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
-type UI5 m p event = SF event (HTML p (m event))
+type Component m req res = SF1 req (HTML (m res))</pre></blockquote>
+      </section>
 
-data Component p m req res</pre></blockquote>
-          </section>
+      <section data-highlight="on">
+        <blockquote><pre class="haskell">
+ui :: forall m eff. (Applicative m) =>
+     Component m Event Event
 
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
-component :: forall p m req res.\
-  (Functor m) => SF1 req (HTML p (m res))
-     -> Component p m req res</pre></blockquote>
-          </section>
+main = do
+  Tuple node driver <- runUI ui
+  appendToBody node</pre></blockquote>
+      </section>
 
-          <section data-highlight="on">
-            <blockquote><pre class="haskell">
-data Input = Click
+      <section data-editor="text/x-purescript" data-href="app/index.html" data-reload data-warmup>
+module Main where
 
-ui :: forall p m. Component p m Input Input
-ui = component (render <$> stateful 0 update)
-  where
-  render :: Number -> HTML p (m Input)
-  render n = button [onclick $ input \_ -> Click] [ text (show n) ]
+import Data.Tuple
+import Data.Maybe
+import Data.Array (delete, sort, (..), (!!))
 
-  update :: Number -> Input -> Number
-  update n Click = n + 1
+import qualified Data.Char as Char
 
-main = runUI ui</pre></blockquote>
-          </section>
+import Debug.Trace
 
-          <section class="photo white" data-image="m/cat-explosion.gif">
-            <h2>Thank you!</h2>
-            <p>@bodil</p>
-            <p>github.com/bodil/how-to-get-shit-to-work-right</p>
-          </section>
+import Control.Functor (($>))
+import Control.Alternative
+import Control.Bind
+import Control.Monad.Eff
 
-          <script type="text/javascript" src="dist/pink/pink.js"></script>
+import DOM
+
+import Data.DOM.Simple.Document
+import Data.DOM.Simple.Element
+import Data.DOM.Simple.Types
+import Data.DOM.Simple.Window
+
+import Halogen
+import Halogen.Signal
+import Halogen.Component
+
+import qualified Halogen.HTML as H
+import qualified Halogen.HTML.Attributes as A
+import qualified Halogen.HTML.Events as A
+import qualified Halogen.HTML.Events.Forms as A
+import qualified Halogen.HTML.Events.Handler as E
+
+
+
+appendToBody :: forall eff. HTMLElement ->
+                Eff (dom :: DOM | eff) Unit
+appendToBody e = do
+  doc <- document globalWindow
+  Just app <- querySelector "#app" doc
+  appendChild app e
+
+
+
+-- main = do
+--   Tuple node driver <- runUI ui
+--   appendToBody node
+      </section>
+
+      <section class="photo white" data-background="m/cat-explosion.gif">
+        <h2>Thank you!</h2>
+        <p>@bodil</p>
+        <p>github.com/bodil/post-frp</p>
+      </section>
+
+    </div>
+
+    <script type="text/javascript" src="dist/pink/pink.js"></script>
   </body>
 </html>

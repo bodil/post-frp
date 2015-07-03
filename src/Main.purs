@@ -47,10 +47,14 @@ data ListState = ListState [Pony] Pony
 
 data ListInput = NewPony | EntryUpdated Pony | RemovePony Pony
 
-list :: forall m. (Alternative m) =>
+ui :: forall m. (Alternative m) =>
         Component m ListInput ListInput
-list = render <$>
-       stateful (ListState ["fluttershy"] "") update
+ui = render <$>
+       stateful (ListState
+                 [ "applejack"
+                 , "fluttershy"
+                 , "rarity"
+                 ] "") update
   where
     render :: ListState -> H.HTML (m ListInput)
     render (ListState ponies entry) =
@@ -86,5 +90,5 @@ list = render <$>
       ListState (delete pony ponies) entry
 
 main = do
-  Tuple node driver <- runUI list
+  Tuple node driver <- runUI ui
   appendToBody node
