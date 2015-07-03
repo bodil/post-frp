@@ -1,3 +1,10 @@
+@import url(normalise.css);
+
+@font-face {
+    font-family: 'Celestia';
+    src: url("celestia.ttf") format("truetype");
+}
+
 *, *:before, *:after {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -7,8 +14,13 @@
     border: 0;
 }
 
+body {
+    background-color: #ffeefa;
+    font-family: "Celestia";
+    font-size: 18pt;
+}
+
 #app {
-    background-color: #eee;
     position: absolute;
     top: 0;
     left: 0;
@@ -17,4 +29,51 @@
     -moz-transform-origin: 0 0;
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
+}
+
+ul {
+    padding: 0 1em;
+}
+
+li {
+    list-style: none;
+}
+
+input {
+    margin: 1em;
+    font-family: "Celestia";
+    font-size: 18pt;
+    border: 1px solid #fcc;
+}
+
+button {
+    background-color: #fcc;
+    border-top: 1px solid #fee;
+    border-left: 1px solid #fee;
+    border-right: 1px solid #faa;
+    border-bottom: 1px solid #faa;
+    padding: 0.2em 0.2em;
+    border-radius: 5pt;
+    margin-right: 1em;
+    margin-top: 0.1em;
+    float: left;
+}
+
+h1 {
+    font-family: 'Celestia';
+    font-size: 2em;
+    font-weight: normal;
+    color: #b92993;
+    background-color: #ffc2ee;
+    text-align: center;
+    line-height: 64pt;
+    white-space: nowrap;
+    margin: 24pt 0 24pt 0;
+    box-shadow: 0 4px 16px #ffc2ee,
+    0 -4px 16px #ffc2ee;
+}
+
+h1 img {
+    vertical-align: middle;
+    margin: -24px 0.1em 0 0.1em;
 }

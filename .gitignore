@@ -1,3 +1,5 @@
 .tern-port
 /bower_components/
 /node_modules/
+/output/
+/apptest/app.js

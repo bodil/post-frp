@@ -22,6 +22,7 @@
         import Data.Void
         import Data.Tuple
         import Data.Either
+        import Data.Maybe
 
         import Control.Bind
         import Control.Monad.Eff
@@ -43,26 +44,32 @@
 
         import qualified Halogen.Themes.Bootstrap3 as B
 
-        appendToBody :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) Unit
+        appendToBody :: forall eff. HTMLElement ->
+                        Eff (dom :: DOM | eff) Unit
         appendToBody e = do
           doc <- document globalWindow
           Just app <- querySelector "#app" doc
           appendChild app e
 
-        data State = State Number
+        type Pony = String
 
-        data Input = Tick
+        data State = State [Pony]
 
-        ui :: forall m. (Applicative m) => Component m Input Input
+        data Input = NewPony Pony | RemovePony Pony
+
+        ui :: forall m. (Applicative m) =>
+              Component m Input Input
         ui = render <$> stateful (State 0) update
           where
           render :: State -> H.HTML (m Input)
           render (State n) =
             H.div [ A.class_ B.container ]
-                  [ H.p_ [ H.text ("lol omg " ++ show n) ] ]
+              [ H.p_ [ H.text
+                 ("lol omg " ++ show n) ] ]
 
           update :: State -> Input -> State
-          update (State number) Tick = State (number + 1)
+          update (State number) Tick =
+            State (number + 1)
 
         main = do
           Tuple node driver <- runUI ui
